@@ -27,9 +27,12 @@ public class CaixaEletronicoApplication {
         System.out.println("✅ Aplicação iniciada com sucesso!");
         System.out.println("🌐 Acesse: http://localhost:8080");
         System.out.println("📋 API Docs: http://localhost:8080/api/contas");
-        System.out.println("💾 Console H2: http://localhost:8080/h2-console");
+        System.out.println("� Swagger UI: http://localhost:8080/swagger-ui.html");
+        System.out.println("�💾 Console H2: http://localhost:8080/h2-console");
         System.out.println("   - JDBC URL: jdbc:h2:mem:caixadb");
-        System.out.println("   - Username: sa");
-        System.out.println("   - Password: (deixar vazio)");
+        System.out.println("   - Username: adminbanco");
+        System.out.println("   - Password: admin123");
+        System.out.println("🖥️ Interface Gráfica: Iniciando automaticamente...");
+        System.out.println("💡 Para desabilitar a UI Swing: -Dswing.ui.enabled=false");
     }
 }

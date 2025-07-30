@@ -43,11 +43,38 @@ src/main/java/br/com/Igor/caixaeletronico/
 
 ## 🚀 **Como Executar no NetBeans**
 
-### **1️⃣ Importar Projeto**
-1. Abra o **NetBeans**
+### **1️⃣ Importar Projeto no NetBeans**
+1. Abra o **NetBeans IDE**
 2. Vá em `File` → `Open Project`
 3. Selecione a pasta `/home/igor/NetBeansProjects/CaixaEletronico`
 4. O NetBeans reconhecerá automaticamente como projeto Maven
+
+### **2️⃣ Executar com Interface Gráfica Swing**
+Para rodar com a **UI gráfica moderna** no NetBeans:
+
+**Opção A - Via NetBeans:**
+1. No painel `Projects`, clique com botão direito no projeto
+2. Selecione `Set as Main Project`  
+3. Configure a classe principal: `br.com.Igor.caixaeletronico.CaixaEletronicoNetBeans`
+4. Clique em `Run` ou pressione `F6`
+
+**Opção B - Via Script:**
+```bash
+cd /home/igor/NetBeansProjects/CaixaEletronico
+./run-netbeans.sh
+```
+
+**Opção C - Via Maven:**
+```bash
+cd /home/igor/NetBeansProjects/CaixaEletronico
+mvn spring-boot:run -Dspring-boot.run.mainClass="br.com.Igor.caixaeletronico.CaixaEletronicoNetBeans"
+```
+
+### **3️⃣ Executar Apenas como Web Service (sem UI)**
+Para rodar apenas as APIs REST:
+```bash
+mvn spring-boot:run -Dspring-boot.run.mainClass="br.com.Igor.caixaeletronico.CaixaEletronico"
+```
 
 ### **2️⃣ Executar Aplicação**
 1. **Botão direito** no projeto → `Run`
@@ -125,9 +152,21 @@ DELETE http://localhost:8080/api/contas/{numero}
 ## 📚 **Swagger/OpenAPI 3 - Documentação Interativa**
 
 ### **🌐 Interfaces Disponíveis**
-- **Swagger UI**: http://localhost:8080/swagger-ui.html
-- **OpenAPI JSON**: http://localhost:8080/v3/api-docs
-- **OpenAPI YAML**: http://localhost:8080/v3/api-docs.yaml
+1. **🖥️ Interface Gráfica Swing** - UI desktop moderna (NetBeans)
+2. **📱 Swagger UI**: http://localhost:8080/swagger-ui.html
+3. **🔧 OpenAPI JSON**: http://localhost:8080/v3/api-docs
+4. **📄 OpenAPI YAML**: http://localhost:8080/v3/api-docs.yaml
+5. **🗄️ H2 Console**: http://localhost:8080/h2-console
+
+### **🎯 Interface Gráfica Swing - Funcionalidades**
+A **UI Desktop** oferece todas as operações bancárias:
+- ✅ **Criar Conta** - Formulário com validação
+- ✅ **Depositar** - Interface intuitiva com feedback visual
+- ✅ **Sacar** - Validação de saldo automática
+- ✅ **Consultar Saldo** - Exibição em tempo real
+- ✅ **Listar Contas** - Tabela com todas as contas
+- ✅ **Design Moderno** - FlatLaf IntelliJ Look & Feel
+- ✅ **Responsiva** - Adaptável a diferentes resoluções
 
 ### **🚀 API v2 - Versão Avançada**
 Nova versão da API com respostas estruturadas e documentação completa:
