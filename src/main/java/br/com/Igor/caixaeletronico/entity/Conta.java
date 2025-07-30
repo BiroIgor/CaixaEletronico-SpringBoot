@@ -1,4 +1,4 @@
-package br.com.Igor.caixaeletronico;
+package br.com.Igor.caixaeletronico.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.Valid;

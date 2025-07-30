@@ -1,7 +1,9 @@
 package br.com.Igor.caixaeletronico.controller;
 
-import br.com.Igor.caixaeletronico.Conta;
-import br.com.Igor.caixaeletronico.Cliente;
+import br.com.Igor.caixaeletronico.dto.ContaRequestDTO;
+import br.com.Igor.caixaeletronico.dto.OperacaoRequestDTO;
+import br.com.Igor.caixaeletronico.dto.SaldoResponseDTO;
+import br.com.Igor.caixaeletronico.entity.Conta;
 import br.com.Igor.caixaeletronico.service.ContaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -83,9 +85,23 @@ public class ContaController {
         @ApiResponse(responseCode = "400", description = "Dados inválidos ou conta já existente")
     })
     @PostMapping
-    public ResponseEntity<Conta> criarConta(@Valid @RequestBody ContaRequest request) {
+    public ResponseEntity<Conta> criarConta(@Valid @RequestBody ContaRequestDTO request) {
         try {
-            Conta contaCriada = contaService.criarConta(request.getNumero(), request.getTitular());
+            Conta contaCriada = contaService.criarConta(
+                request.getNumero(), 
+                new br.com.Igor.caixaeletronico.entity.Cliente(
+                    request.getTitular().getNome(),
+                    request.getTitular().getCpf()
+                )
+            );
+            
+            // Se foi especificado um saldo inicial, fazer depósito
+            if (request.getSaldoInicial() != null && request.getSaldoInicial().compareTo(BigDecimal.ZERO) > 0) {
+                contaService.depositar(request.getNumero(), request.getSaldoInicial());
+                // Buscar conta atualizada
+                contaCriada = contaService.buscarConta(request.getNumero()).orElse(contaCriada);
+            }
+            
             return ResponseEntity.status(HttpStatus.CREATED).body(contaCriada);
         } catch (Exception e) {
             return ResponseEntity.badRequest().build();
@@ -98,7 +114,7 @@ public class ContaController {
      */
     @PutMapping("/{numero}/depositar")
     public ResponseEntity<String> depositar(@PathVariable Integer numero, 
-                                          @RequestBody OperacaoRequest request) {
+                                          @RequestBody OperacaoRequestDTO request) {
         try {
             contaService.depositar(numero, request.getValor());
             return ResponseEntity.ok("Depósito realizado com sucesso");
@@ -113,7 +129,7 @@ public class ContaController {
      */
     @PutMapping("/{numero}/sacar")
     public ResponseEntity<String> sacar(@PathVariable Integer numero, 
-                                      @RequestBody OperacaoRequest request) {
+                                      @RequestBody OperacaoRequestDTO request) {
         try {
             contaService.sacar(numero, request.getValor());
             return ResponseEntity.ok("Saque realizado com sucesso");
@@ -126,11 +142,11 @@ public class ContaController {
      * GET /api/contas/{numero}/saldo - Consultar saldo
      */
     @GetMapping("/{numero}/saldo")
-    public ResponseEntity<SaldoResponse> consultarSaldo(@PathVariable Integer numero) {
+    public ResponseEntity<SaldoResponseDTO> consultarSaldo(@PathVariable Integer numero) {
         try {
             Optional<Conta> conta = contaService.buscarConta(numero);
             if (conta.isPresent()) {
-                SaldoResponse response = new SaldoResponse(
+                SaldoResponseDTO response = new SaldoResponseDTO(
                     conta.get().getNumero(),
                     conta.get().getSaldo()
                 );
@@ -153,36 +169,5 @@ public class ContaController {
         } catch (RuntimeException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
-    }
-
-    // Classes para requests/responses
-    public static class ContaRequest {
-        private Integer numero;
-        private Cliente titular;
-        
-        public Integer getNumero() { return numero; }
-        public void setNumero(Integer numero) { this.numero = numero; }
-        public Cliente getTitular() { return titular; }
-        public void setTitular(Cliente titular) { this.titular = titular; }
-    }
-
-    public static class OperacaoRequest {
-        private BigDecimal valor;
-        
-        public BigDecimal getValor() { return valor; }
-        public void setValor(BigDecimal valor) { this.valor = valor; }
-    }
-
-    public static class SaldoResponse {
-        private Integer numero;
-        private BigDecimal saldo;
-        
-        public SaldoResponse(Integer numero, BigDecimal saldo) {
-            this.numero = numero;
-            this.saldo = saldo;
-        }
-        
-        public Integer getNumero() { return numero; }
-        public BigDecimal getSaldo() { return saldo; }
     }
 }

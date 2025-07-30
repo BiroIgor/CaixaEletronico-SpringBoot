@@ -1,6 +1,6 @@
 package br.com.Igor.caixaeletronico.repository;
 
-import br.com.Igor.caixaeletronico.Conta;
+import br.com.Igor.caixaeletronico.entity.Conta;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

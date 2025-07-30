@@ -41,11 +41,6 @@ javadoc.windowtitle=
 # Main class para execução
 main.class=br.com.Igor.caixaeletronico.CaixaEletronicoApplication
 
-# Configurações Spring Boot
-start-class=br.com.Igor.caixaeletronico.CaixaEletronicoApplication
-exec.mainClass=br.com.Igor.caixaeletronico.CaixaEletronicoApplication
-exec.appArgs=
-
 # Configurações de execução
 run.classpath=${javac.classpath}:${build.classes.dir}
 run.jvmargs=-Dspring.profiles.active=dev

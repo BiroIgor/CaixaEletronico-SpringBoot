@@ -1,7 +1,7 @@
 package br.com.Igor.caixaeletronico.service;
 
-import br.com.Igor.caixaeletronico.Conta;
-import br.com.Igor.caixaeletronico.Cliente;
+import br.com.Igor.caixaeletronico.entity.Conta;
+import br.com.Igor.caixaeletronico.entity.Cliente;
 import br.com.Igor.caixaeletronico.repository.ContaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-properties xmlns="http://www.netbeans.org/ns/project-properties-data/1">
+    <properties>
+        <!-- Configurações Spring Boot -->
+        <property name="spring-boot.main-class">br.com.Igor.caixaeletronico.CaixaEletronicoApplication</property>
+        <property name="spring-boot.run.profiles">dev</property>
+        <property name="spring-boot.run.jvmArguments">-Dspring.profiles.active=dev</property>
+        
+        <!-- Configurações de desenvolvimento -->
+        <property name="compile.on.save">true</property>
+        <property name="do.depend">false</property>
+        <property name="do.jar">true</property>
+        
+        <!-- Configurações Maven -->
+        <property name="maven.exec.args">-Dexec.mainClass="br.com.Igor.caixaeletronico.CaixaEletronicoApplication" -Dexec.java.runtime.args="-Dspring.profiles.active=dev" ${exec.args}</property>
+        
+        <!-- Configurações de teste -->
+        <property name="test.includes">**/*Test.java</property>
+        <property name="test.excludes"></property>
+        
+        <!-- Configurações de encoding -->
+        <property name="source.encoding">UTF-8</property>
+        <property name="project.charset">UTF-8</property>
+    </properties>
+</project-properties>
